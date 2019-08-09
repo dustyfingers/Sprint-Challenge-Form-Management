@@ -12,14 +12,23 @@ function App() {
 
   const fetchStuff = async () => {
     let { data } = await axios.get('http://localhost:5000/api/restricted/data');
-    console.log(data);
-    setStuff(data);
-    console.log(stuff);
+    setStuff([...data]);
   };
+
+  console.log(stuff);
 
   return (
     <div className="App">
       <Signup />
+      {stuff.map(thing => (
+        <div className="recipe">
+          <h2>{thing.name}</h2>
+          {thing.ingredients.map(ingredient => (
+            <p>{ingredient}</p>
+          ))}
+          <h3>{thing.technique}</h3>
+        </div>
+      ))}
     </div>
   );
 }
